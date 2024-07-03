@@ -3,6 +3,7 @@
 namespace App\OAuth;
 
 use AmoCRM\Client\AmoCRMApiClient;
+use AmoCRM\Exceptions\AmoCRMApiException;
 use AmoCRM\Exceptions\AmoCRMoAuthApiException;
 use Exception;
 use League\OAuth2\Client\Token\AccessToken;
@@ -11,7 +12,7 @@ use Random\RandomException;
 class OAuthToken
 {
     /**
-     * @throws RandomException|AmoCRMoAuthApiException
+     * @throws AmoCRMoAuthApiException|RandomException
      */
     function useToken(AmoCRMApiClient $apiClient): void
     {
@@ -34,8 +35,8 @@ class OAuthToken
                     'baseDomain' => $apiClient->getAccountBaseDomain(),
                 ]);
             }
-        } catch (Exception $e) {
-            die((string)$e);
+        } catch (AmoCRMApiException $e) {
+            throw new AmoCRMoAuthApiException($e->getMessage());
         }
 
         $ownerDetails = $apiClient->getOAuthClient()->getResourceOwner($accessToken);
@@ -64,10 +65,13 @@ class OAuthToken
         }
     }
 
+    /**
+     * @throws Exception
+     */
     static function getToken(): AccessToken
     {
         if (!file_exists(TOKEN_FILE)) {
-            exit('Access token file not found');
+            throw new Exception('Token file not found');
         }
 
         $accessToken = json_decode(file_get_contents(TOKEN_FILE), true);

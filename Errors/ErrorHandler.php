@@ -5,10 +5,10 @@ namespace App\Errors;
 use AmoCRM\Exceptions\AmoCRMApiErrorResponseException;
 use AmoCRM\Exceptions\AmoCRMApiException;
 
-class ErrorHandler {
-
+class ErrorHandler
+{
     public string $error = '';
-    function printError(AmoCRMApiException $e): void
+    public function printError(AmoCRMApiException $e): void
     {
         $errorTitle = $e->getTitle();
         $code = $e->getCode();
