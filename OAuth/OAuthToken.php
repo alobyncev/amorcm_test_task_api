@@ -73,9 +73,7 @@ class OAuthToken
         if (!file_exists(TOKEN_FILE)) {
             throw new Exception('Token file not found');
         }
-
         $accessToken = json_decode(file_get_contents(TOKEN_FILE), true);
-
         if (
             isset($accessToken['accessToken'])
             && isset($accessToken['refreshToken'])

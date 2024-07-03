@@ -50,15 +50,12 @@ class LeadService
             for ($j = 0; $j < 50; $j++) {
                 $contact = new ContactModel();
                 $contact->setName("ContactName$i.$j");
-
                 $company = new CompanyModel();
                 $company->setName("CompanyName$i.$j");
-
                 $lead = new LeadModel();
                 $lead->setName("LeadName$i.$j")
                     ->setContacts((new ContactsCollection())->add($contact))
                     ->setCompany($company);
-
 
                 // указываем "Второй вариант" по коду энама
                 $variant = (new SelectCustomFieldValuesModel())
@@ -73,7 +70,6 @@ class LeadService
 
                 $leadsCollection->add($lead);
             }
-
             try {
                 $leadsService->addComplex($leadsCollection);
             } catch (AmoCRMApiException $e) {
@@ -81,10 +77,8 @@ class LeadService
                 (new LeadsChunkError())->printError($e);
                 die;
             }
-
             $leadsCollectionArray[] = $leadsCollection;
         }
-
         echo 'Added leads: ';
         echo '<pre>';
         var_dump($leadsCollectionArray);

@@ -2,21 +2,16 @@
 
 namespace App\OAuth;
 
-use AmoCRM\Client\AmoCRMApiClient;
-use AmoCRM\Client\AmoCRMApiClientFactory;
-use League\OAuth2\Client\Token\AccessToken;
-use League\OAuth2\Client\Token\AccessTokenInterface;
+use AmoCRM\Client\{AmoCRMApiClient, AmoCRMApiClientFactory};
+use League\OAuth2\Client\Token\{AccessToken, AccessTokenInterface};
 
 class ApiClientService {
-
     function getApiClient(AccessToken $accessToken): AmoCRMApiClient {
         $oAuthConfig = new OAuthConfig();
         $oAuthService = new OAuthService();
-
         $apiClientFactory = new AmoCRMApiClientFactory($oAuthConfig, $oAuthService);
         $apiClient = $apiClientFactory->make();
         $apiClient->setAccountBaseDomain(getenv('SUBDOMAIN'));
-
         $apiClient->setAccessToken($accessToken)
             ->setAccountBaseDomain($accessToken->getValues()['baseDomain'])
             ->onAccessTokenRefresh(
