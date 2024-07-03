@@ -20,6 +20,7 @@ use App\OAuth\OAuthToken;
 
 class LeadService
 {
+
     /**
      * @throws AmoCRMMissedTokenException
      * @throws AmoCRMApiException

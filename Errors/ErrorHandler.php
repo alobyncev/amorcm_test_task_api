@@ -6,7 +6,9 @@ use AmoCRM\Exceptions\{AmoCRMApiErrorResponseException, AmoCRMApiException};
 
 class ErrorHandler
 {
+
     public string $error = '';
+
     public function printError(AmoCRMApiException $e): void
     {
         $errorTitle = $e->getTitle();

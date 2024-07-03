@@ -11,6 +11,7 @@ use Random\RandomException;
 
 class OAuthToken
 {
+
     /**
      * @throws AmoCRMoAuthApiException|RandomException
      */

@@ -6,6 +6,7 @@ use AmoCRM\Client\{AmoCRMApiClient, AmoCRMApiClientFactory};
 use League\OAuth2\Client\Token\{AccessToken, AccessTokenInterface};
 
 class ApiClientService {
+
     function getApiClient(AccessToken $accessToken): AmoCRMApiClient {
         $oAuthConfig = new OAuthConfig();
         $oAuthService = new OAuthService();
